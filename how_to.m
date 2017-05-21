@@ -1,5 +1,6 @@
 % HOWTO function
-function [] = how_to(t_matrix)
+function [q] = how_to(t_matrix)
+warning('off','all');
 
 % limit of iterations.
 L = 3000;
@@ -21,9 +22,7 @@ q = robot.ikine(t_matrix, 'ilimit', L, 'alpha', ALPHA);
 robot.plot(q, 'workspace', workspace_axis);
 robot.teach();
 
-% convert result to dergees.
-q = arrayfun(@(z) radtodeg(z), q);
-disp('IK: joint angles');
+disp('IK: joint angles:');
 disp(q);
-    
+
 end
