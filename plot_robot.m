@@ -7,7 +7,7 @@ if ~isempty(varargin)
     workspace_axis = varargin{1};
 else
     % default value for workspace axis.
-    workspace_axis = [-2 2 -2 2 -0.5 10];
+    workspace_axis = [-5 5 -5 5 -0.5 10];
 end
 
 robot.plot(initial_q, 'workspace', workspace_axis);

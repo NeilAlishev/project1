@@ -9,7 +9,7 @@ L = 3000;
 ALPHA = 0.2;
 
 robot = get_robot;
-workspace_axis = [-2 2 -2 2 -0.5 10];
+workspace_axis = [-5 5 -5 5 -0.5 10];
 
 % normalize transformation matrix to make it orthogonal.
 [U, ~, V]=svd(t_matrix(1:3, 1:3));
