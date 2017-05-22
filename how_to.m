@@ -2,21 +2,23 @@
 function [q] = how_to(t_matrix)
 warning('off','all');
 
-% validate position vectors
+% validate position vector
 posX = t_matrix(1,4);
 posY = t_matrix(2,4);
 posZ = t_matrix(3,4);
 
+msg = '%s coordinate in position vector must be in [%d; %d]';
+
 if posX > 6 || posX < -6
-    throw(MException('how_to:posX', 'X coordinate in position vector must be bigger than 0 and less than 6'));
+    throw(MException('how_to:posX', msg, 'X', -6, 6));
 end
 
 if posY > 6 || posY < -6
-    throw(MException('how_to:posY', 'Y coordinate in position vector must be bigger than 0 and less than 6'));
+    throw(MException('how_to:posY', msg, 'Y', -6, 6));
 end
 
 if posZ < 0 || posZ > 6
-    throw(MException('how_to:posZ', 'Z coordinate in position vector must be bigger than 0 and less than 6'));
+    throw(MException('how_to:posZ', msg, 'Z', 0, 6));
 end
 
 % limit of iterations.
