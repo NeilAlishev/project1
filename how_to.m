@@ -2,6 +2,12 @@
 function [q] = how_to(t_matrix)
 warning('off','all');
 
+% validate position vector
+posZ = t_matrix(3, 4);
+if posZ < 0
+    throw(MException('how_to:posZ', 'Z coordinate in position vector must be bigger than 0'));
+end
+
 % limit of iterations.
 L = 3000;
 
@@ -19,8 +25,5 @@ t_matrix = [t_corrected, t_matrix(1:3, end); 0 0 0 1];
 q = robot.ikine(t_matrix, 'ilimit', L, 'alpha', ALPHA);
 
 plot_robot(robot, 'q', q);
-
-disp('IK: joint angles:');
-disp(q);
 
 end
