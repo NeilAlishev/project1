@@ -126,6 +126,8 @@ x = [];
 y = [];
 z = [];
 
+mapObj = containers.Map;
+
 % plot overall robot workspace
 for theta1 = 0 : RATE : 2*pi
     for theta2 = -pi : RATE : 0
@@ -137,6 +139,14 @@ for theta1 = 0 : RATE : 2*pi
                     x(end + 1) = pos(1);
                     y(end + 1) = pos(2);
                     z(end + 1) = pos(3);
+                    
+                    s = [num2str(pos(1)), ' ', num2str(pos(2)), ' ', num2str(pos(3))];
+                    
+                    if mapObj.isKey(s)
+                        mapObj(s) = mapObj(s) + 1;
+                    else
+                        mapObj(s) = 1;
+                    end
                 end
             end
         end
@@ -146,6 +156,27 @@ end
 f = figure();
 set(f,'name','Overall robot workspace','numbertitle','off');
 scatter3(x, y, z, 1);
+plot_robot(robot, 'workspace', [-7 7 -7 7 -0.5 10]);
+
+x = [];
+y = [];
+z = [];
+
+k = keys(mapObj);
+val = values(mapObj);
+
+for i = 1:length(mapObj)
+ if val{i} >= 4
+     pos = str2num(k{i});
+     x(end + 1) = pos(1);
+     y(end + 1) = pos(2);
+     z(end + 1) = pos(3);
+ end
+end
+
+f = figure();
+set(f,'name','Dexterous workspace','numbertitle', 'off');
+scatter3(x, y, z, 100);
 plot_robot(robot, 'workspace', [-7 7 -7 7 -0.5 10]);
 
 end
