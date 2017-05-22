@@ -1,16 +1,15 @@
 % plot robot
 function [] = plot_robot(robot, varargin)
+% parse optional input parameters
+p = inputParser;
+addParameter(p, 'q', [0 -pi/2 0 pi/2 0 0]);
+addParameter(p, 'workspace', [-5 5 -5 5 -0.5 10]);
+parse(p, varargin{:});
 
-initial_q = [0 -pi/2 0 pi/2 0 0];
+q = p.Results.q;
+workspace = p.Results.workspace;
 
-if ~isempty(varargin)
-    workspace_axis = varargin{1};
-else
-    % default value for workspace axis.
-    workspace_axis = [-5 5 -5 5 -0.5 10];
-end
-
-robot.plot(initial_q, 'workspace', workspace_axis);
+robot.plot(q, 'workspace', workspace);
 robot.teach();
 
 end

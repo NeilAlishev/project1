@@ -9,7 +9,6 @@ L = 3000;
 ALPHA = 0.2;
 
 robot = get_robot;
-workspace_axis = [-5 5 -5 5 -0.5 10];
 
 % normalize transformation matrix to make it orthogonal.
 [U, ~, V]=svd(t_matrix(1:3, 1:3));
@@ -19,8 +18,7 @@ t_matrix = [t_corrected, t_matrix(1:3, end); 0 0 0 1];
 
 q = robot.ikine(t_matrix, 'ilimit', L, 'alpha', ALPHA);
 
-robot.plot(q, 'workspace', workspace_axis);
-robot.teach();
+plot_robot(robot, 'q', q);
 
 disp('IK: joint angles:');
 disp(q);
